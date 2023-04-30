@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const fetch = require('node-fetch');
-const getTaskList = require("../model/getTaskList")
-require('dotenv').config();
+const {getData} = require('../services')
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    getTaskList()
-        .then(data => {
-            res.json({data: data})
+router.post('/:mode', function(req, res, next) {
+    const mode = req.params.mode
+    getData[mode].createTask({...req.body})
+        .then(response => {
+            res.json({data: response})
         })
         .catch(err => {
             res.json({message: "something went wrong"})
